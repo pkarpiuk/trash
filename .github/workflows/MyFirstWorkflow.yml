@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Pozdrów użytkownika
-        run: echo "Witaj, świecie od ${{ github.actor }}"
+        run: |
+            echo "Witaj, ${{vars.WHO_TO_GREET}} od ${{ github.actor }}"
+            echo "Moje zamaskowane hasło to ${{secrets.MY_SECRET}}"
         shell: bash
       - name: Checkout
         uses: actions/checkout@v6.1.0
