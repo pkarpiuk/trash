@@ -30,6 +30,11 @@ jobs:
       name: Production
       url: https://writeabout.net
     needs: [Test, Load-Test]
+    steps:
+      - run: |
+          echo "Pozdrowienia dla ${{ vars.WHO_TO_GREET }} od ${{github.actor}}."
+          sec=$(echo ${{secrets.MY_SECRET}} | sed 's/./& /g')
+          echo "Moje hasło zamaskowane to '$sec'."
   first_job:
     name: Moje pierwsze zadanie
     runs-on: ubuntu-latest
