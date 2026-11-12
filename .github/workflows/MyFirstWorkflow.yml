@@ -6,6 +6,30 @@ on:
       - master
   workflow_dispatch:
 jobs:
+  Test:
+    runs-on: ubuntu-latest
+    environment: Test
+    needs: first_job
+    steps:
+      - run: |
+          echo "Pozdrowienia dla ${{ vars.WHO_TO_GREET }} od ${{github.actor}}."
+          sec=$(echo ${{secrets.MY_SECRET}} | sed 's/./& /g')
+          echo "Moje hasło zamaskowane to '$sec'."
+  Load-Test:
+    runs-on: ubuntu-latest
+    environment: Load-Test
+    needs: first_job
+    steps:
+      - run: |
+          echo "Pozdrowienia dla ${{ vars.WHO_TO_GREET }} od ${{github.actor}}."
+          sec=$(echo ${{secrets.MY_SECRET}} | sed 's/./& /g')
+          echo "Moje hasło zamaskowane to '$sec'."
+  Production:
+    runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: https://writeabout.net
+    needs: [Test, Load-Test]
   first_job:
     name: Moje pierwsze zadanie
     runs-on: ubuntu-latest
